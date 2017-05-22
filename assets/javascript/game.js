@@ -3,7 +3,7 @@ var game = {
   opponent_character: null,
   available_characters: [character_one, character_two, character_three, character_four, character_five],
 
-  setPlayerCharacter: function(character){
+  setAttacker: function(character){
     if(isInArray(character, game.available_characters)){
       game.player_character = character;
       removeItemFromArray(character, this.available_characters);
@@ -11,14 +11,21 @@ var game = {
       game.moveCharacter(character, "attacker");
       game.updateCharacterDisplay();
     }
+    else{
+      console.log("That character isn't available");
+    }
   },
 
-  setOpponentCharacter: function(character){
+  setDefender: function(character){
     if(isInArray(character, game.available_characters)){
       game.opponent_character = character;
       removeItemFromArray(character, this.available_characters);
       $('#player_character').text(character.hp);
       game.moveCharacter(character, "defender");
+      game.updateCharacterDisplay();
+    }
+    else{
+      console.log("That character isn't available");
     }
   },
 
@@ -31,15 +38,15 @@ var game = {
       characterspace = game.createCharacterStats(game.available_characters[i]);
       allcharacters.append(characterspace);
     }
-    //add attacker
-    var characterstats;
-    if(this.player_character){
-      moveCharacter(this.player_character, "attacker");
-    }
-    //add defender
-    if(opponent_character){
-      moveCharacter(this.opponent_character, "defender");
-    }
+    // //add attacker
+    // var characterstats;
+    // if(this.player_character){
+    //   moveCharacter(this.player_character, "attacker");
+    // }
+    // //add defender
+    // if(opponent_character){
+    //   moveCharacter(this.opponent_character, "defender");
+    // }
   },
 
   createCharacterStats:function(character){
@@ -61,7 +68,7 @@ var game = {
     game.updateCharacterDisplay();
   },
 
-  moveCharacter: function(character){
+  moveCharacter: function(character, position){
     //move a character to the attacking or defending position
     var characterstats = game.createCharacterStats(character);
     $("#"+position).append(characterstats);
