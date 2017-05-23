@@ -1,31 +1,31 @@
 var game = {
-  player_character: null,
-  opponent_character: null,
+  attacker_character: null,
+  defender_character: null,
   available_characters: [character_one, character_two, character_three, character_four, character_five],
 
   setAttacker: function(character){
-    if(isInArray(character, game.available_characters)){
-      game.player_character = character;
+    if(isInArray(character, game.available_characters)&&!game.attacker_character){
+      game.attacker_character = character;
       removeItemFromArray(character, this.available_characters);
-      $('#player_character').text(character.hp);
+      // $('#attacker_character').text(character.hp);
       game.moveCharacter(character, "attacker");
       game.updateCharacterDisplay();
     }
     else{
-      console.log("That character isn't available");
+      console.log("error");
     }
   },
 
   setDefender: function(character){
-    if(isInArray(character, game.available_characters)){
-      game.opponent_character = character;
+    if(isInArray(character, game.available_characters)&&!game.defender_character){
+      game.defender_character = character;
       removeItemFromArray(character, this.available_characters);
-      $('#player_character').text(character.hp);
+      // $('#defender_character').text(character.hp);
       game.moveCharacter(character, "defender");
       game.updateCharacterDisplay();
     }
     else{
-      console.log("That character isn't available");
+      console.log("error");
     }
   },
 
@@ -38,15 +38,6 @@ var game = {
       characterspace = game.createCharacterStats(game.available_characters[i]);
       allcharacters.append(characterspace);
     }
-    // //add attacker
-    // var characterstats;
-    // if(this.player_character){
-    //   moveCharacter(this.player_character, "attacker");
-    // }
-    // //add defender
-    // if(opponent_character){
-    //   moveCharacter(this.opponent_character, "defender");
-    // }
   },
 
   createCharacterStats:function(character){
