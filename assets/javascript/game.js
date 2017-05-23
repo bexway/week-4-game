@@ -2,6 +2,8 @@ var game = {
   attacker_character: null,
   defender_character: null,
   available_characters: [character_one, character_two, character_three, character_four, character_five],
+  gamestate: 0,
+  //0 is waiting for attacker choice, 1 is waiting for opponent choice, 2 is battle
 
   setAttacker: function(character){
     if(isInArray(character, game.available_characters)&&!game.attacker_character){
@@ -42,11 +44,13 @@ var game = {
 
   createCharacterStats:function(character){
     charactername = character.name;
-    characterhp = character.hp;
+    charactermaxhp = character.maxhp;
+    charactercurrenthp = character.currenthp;
     characterattack = character.attack;
     return '<div class="characterspace">' +
                   '<p class="charactertext charactername">'+charactername+'</p>' +
-                  '<p class="charactertext characterhp">'+characterhp+'</p>' +
+                  '<p class="charactertext charactermaxhp">'+charactermaxhp+'</p>' +
+                  '<p class="charactertext charactercurrenthp">'+charactercurrenthp+'</p>' +
                   '<p class="charactertext characterattack">'+characterattack+'</p>' +
                '</div>';
   },
@@ -63,7 +67,25 @@ var game = {
     //move a character to the attacking or defending position
     var characterstats = game.createCharacterStats(character);
     $("#"+position).append(characterstats);
+  },
+
+  makeAttack: function(){
+    this.defender_character.currenthp -= this.attacker_character.attack;
+    // console.log(this.defender_character.currenthp)
+    this.checkIfDead(this.defender_character);
+  },
+
+  counterAttack: function(){
+    this.attacker_character.currenthp -= this.defender_character.counter;
+    this.checkIfDead(this.attacker_character);
+  },
+
+  checkIfDead: function(character){
+    if(character.currenthp <= 0){
+      console.log("Dead!");
+    }
   }
+
 };
 
 
