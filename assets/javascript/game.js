@@ -10,7 +10,7 @@ var game = {
       game.attacker_character = character;
       removeItemFromArray(character, this.available_characters);
       // $('#attacker_character').text(character.hp);
-      game.moveCharacter(character, "attacker");
+      game.updateFighter(character, "attacker");
       game.updateCharacterDisplay();
     }
     else{
@@ -23,7 +23,7 @@ var game = {
       game.defender_character = character;
       removeItemFromArray(character, this.available_characters);
       // $('#defender_character').text(character.hp);
-      game.moveCharacter(character, "defender");
+      game.updateFighter(character, "defender");
       game.updateCharacterDisplay();
     }
     else{
@@ -46,7 +46,7 @@ var game = {
     charactername = character.name;
     charactermaxhp = character.maxhp;
     charactercurrenthp = character.currenthp;
-    characterattack = character.attack;
+    characterattack = character.currentattack;
     return '<div class="characterspace">' +
                   '<p class="charactertext charactername">'+charactername+'</p>' +
                   '<p class="charactertext charactermaxhp">'+charactermaxhp+'</p>' +
@@ -58,32 +58,56 @@ var game = {
   resetCharacters: function(){
     //make all characters available again
     game.available_characters = [character_one, character_two, character_three, character_four, character_five];
+    //clear attacker and defender
     $("#attacker").empty();
     $("#defender").empty();
+    game.attacker_character = null;
+    game.defender_character = null;
+    //restore health and attack
+    for(var i=0;i<game.available_characters.length;i++){
+      game.available_characters[i].currenthp = game.available_characters[i].maxhp;
+      game.available_characters[i].currentattack = game.available_characters[i].maxattack;
+    }
     game.updateCharacterDisplay();
   },
 
-  moveCharacter: function(character, position){
-    //move a character to the attacking or defending position
+  updateFighter: function(character, position){
+    //update fighter stats or position
     var characterstats = game.createCharacterStats(character);
-    $("#"+position).append(characterstats);
+    $("#"+position).html(characterstats);
+  },
+
+  takeTurn: function(){
+    makeAttack();
+    if(this.checkIfDead(this.defender_character)){
+      this.gameOver();
+    }
+    var test = this.checkIfDead(this.attacker_character);
   },
 
   makeAttack: function(){
-    this.defender_character.currenthp -= this.attacker_character.attack;
+    this.defender_character.currenthp -= this.attacker_character.currentattack;
+    this.attacker_character.currentattack += 6;
     // console.log(this.defender_character.currenthp)
-    this.checkIfDead(this.defender_character);
+    this.updateFighter(this.defender_character, "defender");
+    this.updateFighter(this.attacker_character, "attacker");
   },
 
   counterAttack: function(){
     this.attacker_character.currenthp -= this.defender_character.counter;
-    this.checkIfDead(this.attacker_character);
+    this.updateFighter(this.attacker_character, "attackers");
   },
 
   checkIfDead: function(character){
     if(character.currenthp <= 0){
       console.log("Dead!");
     }
+  },
+
+  gameOver: function(){
+    console.log("Game Over!");
+    resetCharacters();
+    updateCharacterDisplay();
   }
 
 };
