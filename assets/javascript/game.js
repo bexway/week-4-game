@@ -78,11 +78,20 @@ var game = {
   },
 
   takeTurn: function(){
-    makeAttack();
+    //Run this when the attack button is clicked
+    //First, the attacker makes their move
+    this.makeAttack();
+    //if the defender is dead, remove them from play and check if the game is over. They don't counterattack since they're dead
     if(this.checkIfDead(this.defender_character)){
       this.gameOver();
     }
-    var test = this.checkIfDead(this.attacker_character);
+    //Otherwise, make a counterattack, and check if the attacker is dead
+    else{
+      this.counterAttack();
+      if(this.checkIfDead(this.attacker_character)){
+        console.log("test");
+      }
+    }
   },
 
   makeAttack: function(){
@@ -100,14 +109,17 @@ var game = {
 
   checkIfDead: function(character){
     if(character.currenthp <= 0){
-      console.log("Dead!");
+      return true;
+    }
+    else{
+      return false;
     }
   },
 
   gameOver: function(){
     console.log("Game Over!");
-    resetCharacters();
-    updateCharacterDisplay();
+    this.resetCharacters();
+    this.updateCharacterDisplay();
   }
 
 };
@@ -125,3 +137,9 @@ function isInArray(item, array){
     return false;
   }
 }
+
+
+//Below: TESTING SETUP code
+game.updateCharacterDisplay();
+game.setAttacker(character_two);
+game.setDefender(character_five);
