@@ -6,15 +6,17 @@ var game = {
   //0 is waiting for attacker choice, 1 is waiting for opponent choice, 2 is battle
 
   setAttacker: function(character){
-    if(isInArray(character, game.available_characters)&&!game.attacker_character){
-      game.attacker_character = character;
-      removeItemFromArray(character, this.available_characters);
-      // $('#attacker_character').text(character.hp);
-      game.updateFighter(character, "attacker");
-      game.updateCharacterDisplay();
-    }
-    else{
-      console.log("error");
+    if(gamestate<1){
+      if(isInArray(character, game.available_characters)&&!game.attacker_character){
+        game.attacker_character = character;
+        removeItemFromArray(character, this.available_characters);
+        // $('#attacker_character').text(character.hp);
+        game.updateFighter(character, "attacker");
+        game.updateCharacterDisplay();
+      }
+      else{
+        console.log("error");
+      }
     }
   },
 
@@ -39,20 +41,29 @@ var game = {
     for(var i=0;i<game.available_characters.length;i++){
       characterspace = game.createCharacterStats(game.available_characters[i]);
       allcharacters.append(characterspace);
+      // console.log(characterspace.data());
     }
   },
 
   createCharacterStats:function(character){
-    charactername = character.name;
-    charactermaxhp = character.maxhp;
-    charactercurrenthp = character.currenthp;
-    characterattack = character.currentattack;
-    return '<div class="characterspace">' +
-                  '<p class="charactertext charactername">'+charactername+'</p>' +
-                  '<p class="charactertext charactermaxhp">'+charactermaxhp+'</p>' +
-                  '<p class="charactertext charactercurrenthp">'+charactercurrenthp+'</p>' +
-                  '<p class="charactertext characterattack">'+characterattack+'</p>' +
-               '</div>';
+    var charactername = character.name;
+    var charactermaxhp = character.maxhp;
+    var charactercurrenthp = character.currenthp;
+    var characterattack = character.currentattack;
+    // return '<div class="characterspace" id="'+charactername+'">' +
+    //               '<p class="charactertext charactername">'+charactername+'</p>' +
+    //               '<p class="charactertext charactermaxhp">'+charactermaxhp+'</p>' +
+    //               '<p class="charactertext charactercurrenthp">'+charactercurrenthp+'</p>' +
+    //               '<p class="charactertext characterattack">'+characterattack+'</p>' +
+    //            '</div>';
+    var jqcharacter = $('<div>').addClass("characterspace").attr("id", charactername).data("charactervar", character);
+    var stats = '<p class="charactertext charactername">'+charactername+'</p>' +
+    '<p class="charactertext charactermaxhp">'+charactermaxhp+'</p>' +
+    '<p class="charactertext charactercurrenthp">'+charactercurrenthp+'</p>' +
+    '<p class="charactertext characterattack">'+characterattack+'</p>';
+    jqcharacter.append(stats);
+    return jqcharacter;
+
   },
 
   resetCharacters: function(){
@@ -83,7 +94,7 @@ var game = {
     this.makeAttack();
     //if the defender is dead, remove them from play and check if the game is over. They don't counterattack since they're dead
     if(this.checkIfDead(this.defender_character)){
-      this.gameOver();
+      this.removeDefender();
     }
     //Otherwise, make a counterattack, and check if the attacker is dead
     else{
@@ -116,10 +127,19 @@ var game = {
     }
   },
 
+  removeDefender: function(){
+    $("#defender").empty();
+    game.defender_character = null;
+  },
+
   gameOver: function(){
     console.log("Game Over!");
+    //remove attack button, add startgame button
+  },
+
+  startGame: function(){
     this.resetCharacters();
-    this.updateCharacterDisplay();
+    this.gamestate = 0;
   }
 
 };
@@ -138,8 +158,16 @@ function isInArray(item, array){
   }
 }
 
+$(".characterspace").on("click", function(){
+  // var name = $("<div>");
+  // fridgeMagnet.addClass("letter fridge-color").text($(this).attr("data-letter"));
+  // // fridgeMagnet
+  // $("#display").append(fridgeMagnet);
+});
+
 
 //Below: TESTING SETUP code
-game.updateCharacterDisplay();
-game.setAttacker(character_two);
-game.setDefender(character_five);
+game.startGame();
+
+// game.setAttacker(character_two);
+// game.setDefender(character_five);
