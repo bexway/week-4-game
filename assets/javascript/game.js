@@ -133,8 +133,13 @@ var game = {
     game.defender_character = null;
   },
 
-  gameOver: function(){
-    console.log("Game Over!");
+  checkIfGameOver: function(){
+    if(!game.defender_character&&game.available_characters.length===0){
+      return true;
+    }
+    else{
+      return false;
+    }
     //remove attack button, add startgame button
   },
 
@@ -159,15 +164,6 @@ function isInArray(item, array){
   }
 }
 
-// $(".charholder").click(function(){
-//   // var name = $("<div>");
-//   // fridgeMagnet.addClass("letter fridge-color").text($(this).attr("data-letter"));
-//   // // fridgeMagnet
-//   // $("#display").append(fridgeMagnet);
-//   console.log("Test");
-//   console.log(this);
-// });
-
 //since the character stat blocks are dynamic, the onclick is set up attached to the document
 $(document).on('click', '.available', function(){
 
@@ -183,6 +179,18 @@ $(document).on('click', '.available', function(){
 
 $('.attackbtn').click(function(){
   game.takeTurn();
+  if(!game.defender_character){
+    $('.attackbtn').toggle();
+    //if the defender is defeated AND the game is over
+    if(game.checkIfGameOver()){
+      $('.resetbtn').toggle();
+    }
+  }
+});
+
+$('.resetbtn').click(function(){
+  game.startGame();
+  $('.resetbtn').toggle();
 });
 
 
