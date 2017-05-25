@@ -89,20 +89,31 @@ var game = {
     $("#"+position).html(characterstats);
   },
 
+  // takeTurn: function(){
+  //   //Run this when the attack button is clicked
+  //   //First, the attacker makes their move
+  //   this.makeAttack();
+  //   //if the defender is dead, remove them from play and check if the game is over. They don't counterattack since they're dead
+  //   if(this.checkIfDead(this.defender_character)){
+  //     this.removeDefender();
+  //   }
+  //   //Otherwise, make a counterattack, and check if the attacker is dead
+  //   else{
+  //     this.counterAttack();
+  //     if(this.checkIfDead(this.attacker_character)){
+  //       console.log("test");
+  //     }
+  //   }
+  // },
   takeTurn: function(){
     //Run this when the attack button is clicked
     //First, the attacker makes their move
+    console.log("Attack");
     this.makeAttack();
     //if the defender is dead, remove them from play and check if the game is over. They don't counterattack since they're dead
-    if(this.checkIfDead(this.defender_character)){
-      this.removeDefender();
-    }
-    //Otherwise, make a counterattack, and check if the attacker is dead
-    else{
+    if(!this.checkIfDead(this.defender_character)){
+      console.log("counter");
       this.counterAttack();
-      if(this.checkIfDead(this.attacker_character)){
-        console.log("test");
-      }
     }
   },
 
@@ -117,6 +128,7 @@ var game = {
   counterAttack: function(){
     this.attacker_character.currenthp -= this.defender_character.counter;
     this.updateFighter(this.attacker_character, "attackers");
+    this.updateFighter(this.defender_character, "defender");
   },
 
   checkIfDead: function(character){
@@ -128,13 +140,21 @@ var game = {
     }
   },
 
+  removeAttacker: function(){
+    $("#attacker").empty();
+    game.attacker_character = null;
+  },
+
   removeDefender: function(){
     $("#defender").empty();
     game.defender_character = null;
   },
 
   checkIfGameOver: function(){
-    if(!game.defender_character&&game.available_characters.length===0){
+    if((!game.defender_character&&game.available_characters.length===0)){
+      return true;
+    }
+    else if(!game.attacker_character){
       return true;
     }
     else{
@@ -166,8 +186,7 @@ function isInArray(item, array){
 
 //since the character stat blocks are dynamic, the onclick is set up attached to the document
 $(document).on('click', '.available', function(){
-
-    console.log(this);
+  //set attacker or defender, whichever needs to be set
     if(!game.attacker_character){
       game.setAttacker($(this).data("charactervar"));
     }
@@ -179,12 +198,16 @@ $(document).on('click', '.available', function(){
 
 $('.attackbtn').click(function(){
   game.takeTurn();
-  if(!game.defender_character){
+  if(game.checkIfDead(game.attacker_character)){
     $('.attackbtn').toggle();
-    //if the defender is defeated AND the game is over
-    if(game.checkIfGameOver()){
-      $('.resetbtn').toggle();
-    }
+    game.removeAttacker();
+  }
+  else if(game.checkIfDead(game.defender_character)){
+    $('.attackbtn').toggle();
+    game.removeDefender();
+  }
+  if(game.checkIfGameOver()){
+    $('.resetbtn').toggle();
   }
 });
 

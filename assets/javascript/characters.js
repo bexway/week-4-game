@@ -1,5 +1,5 @@
 var character_one = {
-  maxhp: 35,
+  maxhp: 1,
   currenthp: 35,
   maxattack: 5,
   currentattack: 5,
