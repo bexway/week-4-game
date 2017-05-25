@@ -6,7 +6,7 @@ var game = {
   //0 is waiting for attacker choice, 1 is waiting for opponent choice, 2 is battle
 
   setAttacker: function(character){
-    if(gamestate<1){
+    if(this.gamestate<1){
       if(isInArray(character, game.available_characters)&&!game.attacker_character){
         game.attacker_character = character;
         removeItemFromArray(character, this.available_characters);
@@ -40,6 +40,7 @@ var game = {
     allcharacters.empty();
     for(var i=0;i<game.available_characters.length;i++){
       characterstatblock = game.createCharacterStats(game.available_characters[i]);
+      characterstatblock.addClass("available");
       allcharacters.append(characterstatblock);
       // console.log(characterstatblock.data());
     }
@@ -167,7 +168,7 @@ function isInArray(item, array){
 //   console.log(this);
 // });
 
-$(document).on('click', '.characterstatblock', function(){
+$(document).on('click', '.available', function(){
     // what you want to happen when mouseover and mouseout
     // occurs on elements that match '.dosomething'
     console.log("Test");
