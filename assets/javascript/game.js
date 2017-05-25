@@ -6,7 +6,7 @@ var game = {
   //0 is waiting for attacker choice, 1 is waiting for opponent choice, 2 is battle
 
   setAttacker: function(character){
-    if(this.gamestate<1){
+    // if(this.gamestate<1){
       if(isInArray(character, game.available_characters)&&!game.attacker_character){
         game.attacker_character = character;
         removeItemFromArray(character, this.available_characters);
@@ -16,7 +16,7 @@ var game = {
       }
       else{
         console.log("error");
-      }
+      // }
     }
   },
 
@@ -168,12 +168,17 @@ function isInArray(item, array){
 //   console.log(this);
 // });
 
+//since the character stat blocks are dynamic, the onclick is set up attached to the document
 $(document).on('click', '.available', function(){
-    // what you want to happen when mouseover and mouseout
-    // occurs on elements that match '.dosomething'
-    console.log("Test");
+
     console.log(this);
-});
+    if(!game.attacker_character){
+      game.setAttacker($(this).data("charactervar"));
+    }
+    else if(!game.defender_character){
+      game.setDefender($(this).data("charactervar"));
+    }
+  });
 
 
 //Below: TESTING SETUP code
