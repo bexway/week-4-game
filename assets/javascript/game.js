@@ -177,8 +177,13 @@ $(document).on('click', '.available', function(){
     }
     else if(!game.defender_character){
       game.setDefender($(this).data("charactervar"));
+      $('.attackbtn').toggle();
     }
   });
+
+$('.attackbtn').click(function(){
+  game.takeTurn();
+});
 
 
 //Below: TESTING SETUP code
