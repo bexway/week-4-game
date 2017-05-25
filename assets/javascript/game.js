@@ -36,12 +36,12 @@ var game = {
   updateCharacterDisplay: function(){
     //add available characters to top
     var allcharacters = $(".charholder");
-    var characterspace;
+    var characterstatblock;
     allcharacters.empty();
     for(var i=0;i<game.available_characters.length;i++){
-      characterspace = game.createCharacterStats(game.available_characters[i]);
-      allcharacters.append(characterspace);
-      // console.log(characterspace.data());
+      characterstatblock = game.createCharacterStats(game.available_characters[i]);
+      allcharacters.append(characterstatblock);
+      // console.log(characterstatblock.data());
     }
   },
 
@@ -50,13 +50,13 @@ var game = {
     var charactermaxhp = character.maxhp;
     var charactercurrenthp = character.currenthp;
     var characterattack = character.currentattack;
-    // return '<div class="characterspace" id="'+charactername+'">' +
+    // return '<div class="characterstatblock" id="'+charactername+'">' +
     //               '<p class="charactertext charactername">'+charactername+'</p>' +
     //               '<p class="charactertext charactermaxhp">'+charactermaxhp+'</p>' +
     //               '<p class="charactertext charactercurrenthp">'+charactercurrenthp+'</p>' +
     //               '<p class="charactertext characterattack">'+characterattack+'</p>' +
     //            '</div>';
-    var jqcharacter = $('<div>').addClass("characterspace").attr("id", charactername).data("charactervar", character);
+    var jqcharacter = $('<div>').addClass("characterstatblock").attr("id", charactername).data("charactervar", character);
     var stats = '<p class="charactertext charactername">'+charactername+'</p>' +
     '<p class="charactertext charactermaxhp">'+charactermaxhp+'</p>' +
     '<p class="charactertext charactercurrenthp">'+charactercurrenthp+'</p>' +
@@ -158,11 +158,20 @@ function isInArray(item, array){
   }
 }
 
-$(".characterspace").on("click", function(){
-  // var name = $("<div>");
-  // fridgeMagnet.addClass("letter fridge-color").text($(this).attr("data-letter"));
-  // // fridgeMagnet
-  // $("#display").append(fridgeMagnet);
+// $(".charholder").click(function(){
+//   // var name = $("<div>");
+//   // fridgeMagnet.addClass("letter fridge-color").text($(this).attr("data-letter"));
+//   // // fridgeMagnet
+//   // $("#display").append(fridgeMagnet);
+//   console.log("Test");
+//   console.log(this);
+// });
+
+$(document).on('click', '.characterstatblock', function(){
+    // what you want to happen when mouseover and mouseout
+    // occurs on elements that match '.dosomething'
+    console.log("Test");
+    console.log(this);
 });
 
 
