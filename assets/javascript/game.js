@@ -47,7 +47,7 @@ var game = {
     else{
       attack = '<p class="charactertext characterattack">Attack Power: '+character.currentattack+'</p>';
     }
-    var jqcharacter = $('<div>').addClass("characterstatblock").attr("id", character.name).data("charactervar", character);
+    var jqcharacter = $('<div>').addClass("characterstatblock bg-charstat").attr("id", character.name).data("charactervar", character);
     var stats = '<img class="characterimage" src="'+character.image+'" alt="">'+
     '<p class="charactertext charactername textalign-center">'+character.name+'</p>' +
     '<p class="charactertext characterhp">HP: '+character.currenthp+'/'+character.maxhp+'</p>' +
@@ -150,7 +150,7 @@ var game = {
 //since the character stat blocks are dynamic, the onclick is set up attached to the document
 $(document).on('click', '.available', function(){
   //set attacker or defender, whichever needs to be set
-    if(!game.attacker_character){
+    if(!game.attacker_character&&!game.defender_character){
       game.setAttacker($(this).data("charactervar"));
       $('#genmessage').text("Choose your opponent!");
     }
