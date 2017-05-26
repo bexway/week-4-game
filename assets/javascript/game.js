@@ -40,12 +40,18 @@ var game = {
   },
 
   createCharacterStats:function(character){
+    var attack;
+    if(character===game.defender_character){
+      attack = '<p class="charactertext characterattack">Counter-Attack Power: '+character.counter+'</p>';
+    }
+    else{
+      attack = '<p class="charactertext characterattack">Attack Power: '+character.currentattack+'</p>';
+    }
     var jqcharacter = $('<div>').addClass("characterstatblock").attr("id", character.name).data("charactervar", character);
-    var stats = '<img src="'+character.image+'" alt="">'+
-    '<p class="charactertext charactername">'+character.name+'</p>' +
-    '<p class="charactertext charactermaxhp">'+character.maxhp+'</p>' +
-    '<p class="charactertext charactercurrenthp">'+character.currenthp+'</p>' +
-    '<p class="charactertext characterattack">'+character.currentattack+'</p>';
+    var stats = '<img class="characterimage" src="'+character.image+'" alt="">'+
+    '<p class="charactertext charactername textalign-center">'+character.name+'</p>' +
+    '<p class="charactertext characterhp">HP: '+character.currenthp+'/'+character.maxhp+'</p>' +
+    attack;
     jqcharacter.append(stats);
     return jqcharacter;
 

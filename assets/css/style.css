@@ -1,12 +1,41 @@
-.characterstatblock{
-  display:inline-block;
-  border: 2px solid black;
-}
-
 .attackbtn{
   display: none;
 }
 
+.charholder{
+
+}
+
+.characterimage{
+  margin: auto auto;
+  display: block;
+}
+
+.characterstatblock{
+  border: 2px solid black;
+  width: 200px;
+}
+
+.flex{
+  display: flex;
+}
+
+.flex-around{
+  justify-content: space-around;
+}
+
+.flex-nowrap{
+  flex-wrap: nowrap;
+}
+
+.flex-start{
+  justify-content: flex-start;
+}
+
 .resetbtn{
   display: none;
+}
+
+.textalign-center{
+  text-align: center;
 }

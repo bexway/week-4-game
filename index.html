@@ -14,16 +14,22 @@
     <div class="container">
       <h1 class="test">Battle!!!</h1>
       <p id="genmessage">Choose your character!</p>
-      <div class="row charholder">
+      <div class="row charholder flex flex-start flex-nowrap">
 
       </div>
-      <p>attacker:</p>
-      <div id="attacker">
+      <div class="row flex flex-around">
+        <div class="attacker-box">
+          <p>attacker:</p>
+          <div id="attacker">
 
-      </div>
-      <p>defender:</p>
-      <div id="defender">
+          </div>
+        </div>
+        <div class="defender-box">
+          <p>defender:</p>
+          <div id="defender">
 
+          </div>
+        </div>
       </div>
       <button class="attackbtn btn">Attack!</button>
       <button class="resetbtn btn">Reset!</button>
