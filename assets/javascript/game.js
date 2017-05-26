@@ -77,12 +77,15 @@ var game = {
   },
 
   takeTurn: function(){
+    var message = "";
     //First, the attacker makes their move
-    this.makeAttack();
+    message += this.makeAttack();
     //if the defender is dead, remove them from play and check if the game is over. They don't counterattack since they're dead
     if(!this.checkIfDead(this.defender_character)){
-      this.counterAttack();
+      message += this.counterAttack();
     }
+
+    return message
   },
 
   makeAttack: function(){
@@ -91,12 +94,14 @@ var game = {
     // console.log(this.defender_character.currenthp)
     this.updateFighter(this.defender_character, "defender");
     this.updateFighter(this.attacker_character, "attacker");
+    return "<p>You dealt "+(this.attacker_character.currentattack - 6)+" damage!</p>";
   },
 
   counterAttack: function(){
     this.attacker_character.currenthp -= this.defender_character.counter;
     this.updateFighter(this.attacker_character, "attacker");
     this.updateFighter(this.defender_character, "defender");
+    return "<p>You took "+this.defender_character.counter+" damage! Ouch!</p>";
   },
 
   checkIfDead: function(character){
@@ -122,13 +127,9 @@ var game = {
     if((!game.defender_character&&game.available_characters.length===0)){
       return true;
     }
-    // else if(!game.attacker_character){
-    //   return true;
-    // }
     else{
       return false;
     }
-    //remove attack button, add startgame button
   },
 
   startGame: function(){
@@ -160,7 +161,7 @@ $(document).on('click', '.available', function(){
 //click the attack button
 $('.attackbtn').click(function(){
   //attack and counter attack
-  game.takeTurn();
+  $('#damagemessage').html(game.takeTurn());
   //if attacker is dead, game over
   if(game.checkIfDead(game.attacker_character)){
     $('.attackbtn').toggle();
