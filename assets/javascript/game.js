@@ -40,15 +40,12 @@ var game = {
   },
 
   createCharacterStats:function(character){
-    var charactername = character.name;
-    var charactermaxhp = character.maxhp;
-    var charactercurrenthp = character.currenthp;
-    var characterattack = character.currentattack;
-    var jqcharacter = $('<div>').addClass("characterstatblock").attr("id", charactername).data("charactervar", character);
-    var stats = '<p class="charactertext charactername">'+charactername+'</p>' +
-    '<p class="charactertext charactermaxhp">'+charactermaxhp+'</p>' +
-    '<p class="charactertext charactercurrenthp">'+charactercurrenthp+'</p>' +
-    '<p class="charactertext characterattack">'+characterattack+'</p>';
+    var jqcharacter = $('<div>').addClass("characterstatblock").attr("id", character.name).data("charactervar", character);
+    var stats = '<img src="'+character.image+'" alt="">'+
+    '<p class="charactertext charactername">'+character.name+'</p>' +
+    '<p class="charactertext charactermaxhp">'+character.maxhp+'</p>' +
+    '<p class="charactertext charactercurrenthp">'+character.currenthp+'</p>' +
+    '<p class="charactertext characterattack">'+character.currentattack+'</p>';
     jqcharacter.append(stats);
     return jqcharacter;
 
@@ -85,7 +82,7 @@ var game = {
       message += this.counterAttack();
     }
 
-    return message
+    return message;
   },
 
   makeAttack: function(){
