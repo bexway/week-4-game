@@ -47,7 +47,7 @@ var game = {
     else{
       attack = '<p class="charactertext characterattack">Attack Power: '+character.currentattack+'</p>';
     }
-    var jqcharacter = $('<div>').addClass("characterstatblock bg-charstat").attr("id", character.name).data("charactervar", character);
+    var jqcharacter = $('<div>').addClass("characterstatblock bg-charstat margin-side padding-small").attr("id", character.name).data("charactervar", character);
     var stats = '<img class="characterimage" src="'+character.image+'" alt="">'+
     '<p class="charactertext charactername textalign-center">'+character.name+'</p>' +
     '<p class="charactertext characterhp">HP: '+character.currenthp+'/'+character.maxhp+'</p>' +
@@ -189,6 +189,7 @@ $('.resetbtn').click(function(){
   game.startGame();
   $('.resetbtn').toggle();
   $('#genmessage').text("Choose your character!");
+  $('#damagemessage').text("");
 });
 
 

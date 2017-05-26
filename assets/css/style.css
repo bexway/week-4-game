@@ -15,6 +15,8 @@ body{
     overflow: auto;
 
     --main-bg-color: white;
+    --box-spacing: 1.5em;
+    --small-padding: 5px;
 }
 
 .attackbtn{
@@ -53,6 +55,14 @@ body{
 
 .flex-start{
   justify-content: flex-start;
+}
+
+.margin-side{
+  margin: 0px var(--box-spacing);
+}
+
+.padding-small{
+  padding: var(--small-padding);
 }
 
 .resetbtn{
