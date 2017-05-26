@@ -122,9 +122,9 @@ var game = {
     if((!game.defender_character&&game.available_characters.length===0)){
       return true;
     }
-    else if(!game.attacker_character){
-      return true;
-    }
+    // else if(!game.attacker_character){
+    //   return true;
+    // }
     else{
       return false;
     }
@@ -157,26 +157,30 @@ $(document).on('click', '.available', function(){
     }
   });
 
+//click the attack button
 $('.attackbtn').click(function(){
+  //attack and counter attack
   game.takeTurn();
+  //if attacker is dead, game over
   if(game.checkIfDead(game.attacker_character)){
     $('.attackbtn').toggle();
+    $('.resetbtn').toggle();
     game.removeAttacker();
     $('#genmessage').text("Oh no, you lost! Click the Reset button below to try again!");
   }
+  //if defender is dead, next defender or gameover
   else if(game.checkIfDead(game.defender_character)){
     $('.attackbtn').toggle();
     game.removeDefender();
     $('#genmessage').text("You won that battle, but there's more to fight! Choose another opponent!");
-  }
-  if(game.checkIfGameOver()){
-    $('.resetbtn').toggle();
-    if(game.attacker_character){
+    if(game.checkIfGameOver()){
       $('#genmessage').text("You did it, you're the best! Click the Reset button below to play again!");
+      $('.resetbtn').toggle();
     }
   }
 });
 
+//reset the game
 $('.resetbtn').click(function(){
   game.startGame();
   $('.resetbtn').toggle();
@@ -186,7 +190,7 @@ $('.resetbtn').click(function(){
 
 
 
-
+//initialize
 game.startGame();
 
 
@@ -196,7 +200,7 @@ game.startGame();
 
 
 
-
+//other functions
 function removeItemFromArray(item, array){
     return array.splice($.inArray(item, array),1);
 }
