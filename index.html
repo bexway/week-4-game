@@ -8,32 +8,36 @@
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Pacifico" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Covered+By+Your+Grace|Permanent+Marker" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
   </head>
   <body>
     <div class="container">
-      <h1 class="test">Battle!!!</h1>
-      <p id="genmessage">Choose your character!</p>
-      <div class="row charholder flex flex-start flex-nowrap">
+      <h1 class="textalign-center font-family-title">Battle!!!</h1>
+      <p class="font-family-general font-size-general" id="genmessage">Choose your character!</p>
+      <div class="row charholder flex flex-start flex-nowrap font-family-general font-size-general">
 
       </div>
       <div class="row flex flex-around">
-        <div class="attacker-box">
-          <p>attacker:</p>
+        <div class="attacker-box font-family-general font-size-general">
+          <p class="font-family-title">attacker:</p>
           <div id="attacker">
 
           </div>
         </div>
-        <div class="defender-box">
-          <p>defender:</p>
-          <div id="defender">
+        <div class="defender-box font-family-general font-size-general">
+          <p class="font-family-title">defender:</p>
+          <div class="font-family-general" id="defender">
 
           </div>
         </div>
       </div>
-      <button class="attackbtn btn">Attack!</button>
-      <button class="resetbtn btn">Reset!</button>
-      <p id="damagemessage"></p>
+      <div class="flex flex-center">
+        <button class="attackbtn btn bg-minor font-color-white">Attack!</button>
+        <button class="resetbtn bg-minor font-color-white btn">Reset!</button>
+      </div>
+
+      <p id="damagemessage font-family-general"></p>
 
     </div>
 

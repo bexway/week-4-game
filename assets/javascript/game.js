@@ -42,10 +42,10 @@ var game = {
   createCharacterStats:function(character){
     var attack;
     if(character===game.defender_character){
-      attack = '<p class="charactertext characterattack">Counter-Attack Power: '+character.counter+'</p>';
+      attack = '<p class="charactertext characterattack valign-bottom">Counter-Attack Power: '+character.counter+'</p>';
     }
     else{
-      attack = '<p class="charactertext characterattack">Attack Power: '+character.currentattack+'</p>';
+      attack = '<p class="charactertext characterattack valign-bottom">Attack Power: '+character.currentattack+'</p>';
     }
     var jqcharacter = $('<div>').addClass("characterstatblock bg-charstat margin-side padding-small").attr("id", character.name).data("charactervar", character);
     var stats = '<img class="characterimage" src="'+character.image+'" alt="">'+

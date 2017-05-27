@@ -7,7 +7,6 @@ body{
     background-repeat: repeat;
     height: 100%;
     width: 100%;
-    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
@@ -15,8 +14,11 @@ body{
     overflow: auto;
 
     --main-bg-color: white;
+    --minor-bg-color: #8b0000;
     --box-spacing: 1.5em;
     --small-padding: 5px;
+    --font-family-title: 'Permanent Marker', cursive;
+    --font-family-general: 'Covered By Your Grace', cursive;
 }
 
 .attackbtn{
@@ -27,8 +29,8 @@ body{
   background: var(--main-bg-color);
 }
 
-.charholder{
-
+.bg-minor{
+  background: var(--minor-bg-color);
 }
 
 .characterimage{
@@ -41,11 +43,19 @@ body{
   width: 200px;
 }
 
+.display-block{
+  display:block;
+}
+
 .flex{
   display: flex;
 }
 
 .flex-around{
+  justify-content: space-around;
+}
+
+.flex-center{
   justify-content: space-around;
 }
 
@@ -57,12 +67,32 @@ body{
   justify-content: flex-start;
 }
 
+.font-color-white{
+  color: white;
+}
+
+.font-family-title{
+  font-family: var(--font-family-title);
+}
+
+.font-family-general{
+  font-family: var(--font-family-general);
+}
+
+.font-size-general{
+  font-size: 1.5em;
+}
+
 .margin-side{
   margin: 0px var(--box-spacing);
 }
 
 .padding-small{
   padding: var(--small-padding);
+}
+
+.position-abs{
+  position: absolute;
 }
 
 .resetbtn{
